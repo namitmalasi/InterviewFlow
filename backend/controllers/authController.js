@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { generateToken } from "../config/generateToken.js";
 
 // Register
 export const registerUser = async (req, res) => {
@@ -22,9 +23,7 @@ export const registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
+    generateToken(res, user._id);
 
     res.status(201).json({
       token,
@@ -56,12 +55,9 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
+    generateToken(res, user._id);
 
     res.json({
-      token,
       user: {
         id: user._id,
         name: user.name,
@@ -71,4 +67,14 @@ export const loginUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+// logout
+export const logoutUser = (req, res) => {
+  res.cookie("token", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  res.json({ message: "Logged out successfully" });
 };
