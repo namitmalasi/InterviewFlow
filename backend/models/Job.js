@@ -5,15 +5,26 @@ const jobSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
 
-    companyName: String,
+    companyName: {
+      type: String,
+      required: true,
+    },
 
-    role: String,
+    role: {
+      type: String,
+      required: true,
+    },
 
-    jobLink: String,
+    jobLink: {
+      type: String,
+    },
 
-    applicationDate: Date,
+    applicationDate: {
+      type: Date,
+    },
 
     status: {
       type: String,
