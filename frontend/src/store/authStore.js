@@ -4,6 +4,23 @@ import api from "../services/api";
 const useAuthStore = create((set) => ({
   user: null,
   loading: false,
+  authLoading: true,
+
+  checkAuth: async () => {
+    try {
+      const res = await api.get("/auth/me");
+
+      set({
+        user: res.data,
+        authLoading: false,
+      });
+    } catch {
+      set({
+        user: null,
+        authLoading: false,
+      });
+    }
+  },
 
   register: async (data) => {
     set({ loading: true });
