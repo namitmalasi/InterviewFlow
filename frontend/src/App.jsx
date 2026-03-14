@@ -7,6 +7,7 @@ import useAuthStore from "./store/authStore";
 import { useEffect } from "react";
 import PublicRoute from "./components/PublicRoute";
 import JobDetails from "./pages/JobDetails";
+import Toast from "./components/Toast";
 import Home from "./pages/Home";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Toast />
       <Routes>
         <Route path="/" element={<Home />} />
 

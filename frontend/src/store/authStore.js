@@ -6,6 +6,11 @@ const useAuthStore = create((set) => ({
   loading: false,
   authLoading: true,
 
+  toast: null,
+  showToast: (message, type = "success") =>
+    set({ toast: { message, type } }),
+  clearToast: () => set({ toast: null }),
+
   checkAuth: async () => {
     try {
       const res = await api.get("/auth/me");
@@ -29,10 +34,14 @@ const useAuthStore = create((set) => ({
       const res = await api.post("/auth/register", data);
 
       set({ user: res.data });
+      set({ toast: { message: "Registration successful!", type: "success" } });
 
       return true;
     } catch (error) {
-      console.error(error.response?.data?.message);
+      const message =
+        error.response?.data?.message || "Registration failed. Please try again.";
+      set({ toast: { message, type: "error" } });
+      console.error(message);
       return false;
     } finally {
       set({ loading: false });
@@ -46,9 +55,12 @@ const useAuthStore = create((set) => ({
       const res = await api.post("/auth/login", data);
 
       set({ user: res.data });
+      set({ toast: { message: "Login successful!", type: "success" } });
       return true;
     } catch (error) {
-      console.error(error.response?.data?.message);
+      const message = error.response?.data?.message || "Login failed. Please check your credentials.";
+      set({ toast: { message, type: "error" } });
+      console.error(message);
       return false;
     } finally {
       set({ loading: false });
