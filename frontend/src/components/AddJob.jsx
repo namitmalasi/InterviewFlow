@@ -23,15 +23,18 @@ function AddJob() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6 border p-4 rounded">
-      <h2 className="text-lg font-semibold mb-3">Add Job</h2>
+    <form
+      onSubmit={handleSubmit}
+      className="mb-6 bg-white border border-slate-200 rounded-2xl shadow-lg p-6"
+    >
+      <h2 className="text-xl font-bold mb-4 text-slate-700">Add New Job</h2>
 
       <input
         type="text"
         placeholder="Company Name"
         value={form.companyName}
         onChange={(e) => setForm({ ...form, companyName: e.target.value })}
-        className="border p-2 w-full mb-2"
+        className="border border-slate-300 rounded-lg p-3 w-full mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
 
       <input
@@ -39,13 +42,13 @@ function AddJob() {
         placeholder="Role"
         value={form.role}
         onChange={(e) => setForm({ ...form, role: e.target.value })}
-        className="border p-2 w-full mb-2"
+        className="border border-slate-300 rounded-lg p-3 w-full mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
 
       <select
         value={form.status}
         onChange={(e) => setForm({ ...form, status: e.target.value })}
-        className="border p-2 w-full mb-2"
+        className="border border-slate-300 rounded-lg p-3 w-full mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
       >
         <option>Applied</option>
         <option>OA</option>
@@ -54,7 +57,7 @@ function AddJob() {
         <option>Offer</option>
       </select>
 
-      <button className="bg-blue-500 text-white px-4 py-2 rounded">
+      <button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition">
         Add Job
       </button>
     </form>
