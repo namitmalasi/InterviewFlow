@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import useAuthStore from "../store/authStore";
 
 function Sidebar() {
+  const { logout } = useAuthStore();
+
+  const handleLogout = () => {
+    logout();
+  };
   return (
     <div className="w-60 bg-white shadow-lg h-screen p-6">
       <h1 className="text-2xl font-bold mb-8">Interview Flow</h1>
@@ -13,6 +19,13 @@ function Sidebar() {
         <Link to="/" className="text-gray-700 hover:text-blue-500">
           Jobs
         </Link>
+
+        <button
+          className="text-red-700 text-left cursor-pointer"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
       </nav>
     </div>
   );

@@ -1,13 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useJobStore from "../store/jobStore";
 import AddRound from "../components/AddRound";
 
 function JobDetails() {
   const { id } = useParams();
-
   const { rounds, fetchRounds, deleteRound } = useJobStore();
-  console.log("rounds:", rounds);
 
   useEffect(() => {
     if (id) fetchRounds(id);

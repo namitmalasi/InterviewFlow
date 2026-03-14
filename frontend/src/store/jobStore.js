@@ -32,6 +32,18 @@ const useJobStore = create((set) => ({
     }
   },
 
+  updateJob: async (id, data) => {
+    try {
+      const res = await api.put(`/jobs/${id}`, data);
+
+      set((state) => ({
+        jobs: state.jobs.map((job) => (job._id === id ? res.data : job)),
+      }));
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
   deleteJob: async (id) => {
     try {
       await api.delete(`/jobs/${id}`);
