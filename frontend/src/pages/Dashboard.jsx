@@ -22,25 +22,25 @@ function Dashboard() {
 
       {/* Stats Section */}
 
-      <div className="grid grid-cols-4 gap-4 mb-8">
-        <div className="bg-white shadow rounded p-4">
+      <div className="grid grid-cols-4 gap-6 mb-8">
+        <div className="bg-white rounded-lg shadow p-6">
           <p className="text-gray-500">Applications</p>
-          <h2 className="text-2xl font-bold">{total}</h2>
+          <h2 className="text-3xl font-bold">{total}</h2>
         </div>
 
-        <div className="bg-white shadow rounded p-4">
+        <div className="bg-white rounded-lg shadow p-6">
           <p className="text-gray-500">Interviews</p>
-          <h2 className="text-2xl font-bold">{interviews}</h2>
+          <h2 className="text-3xl font-bold">{interviews}</h2>
         </div>
 
-        <div className="bg-white shadow rounded p-4">
+        <div className="bg-white rounded-lg shadow p-6">
           <p className="text-gray-500">Offers</p>
-          <h2 className="text-2xl font-bold">{offers}</h2>
+          <h2 className="text-3xl font-bold">{offers}</h2>
         </div>
 
-        <div className="bg-white shadow rounded p-4">
+        <div className="bg-white rounded-lg shadow p-6">
           <p className="text-gray-500">Rejected</p>
-          <h2 className="text-2xl font-bold">{rejected}</h2>
+          <h2 className="text-3xl font-bold">{rejected}</h2>
         </div>
       </div>
 
@@ -53,21 +53,25 @@ function Dashboard() {
           <div
             key={job._id}
             onClick={() => navigate(`/jobs/${job._id}`)}
-            className="bg-white shadow rounded p-4 hover:shadow-lg transition"
+            className="bg-white rounded-lg shadow p-5 hover:shadow-xl transition cursor-pointer"
           >
-            <h2 className="text-xl font-semibold">{job.companyName}</h2>
+            <div className="flex justify-between items-center">
+              <div>
+                <h2 className="text-lg font-semibold">{job.companyName}</h2>
 
-            <p className="text-gray-600">{job.role}</p>
+                <p className="text-gray-500">{job.role}</p>
+              </div>
 
-            <span
-              className={`inline-block mt-2 px-3 py-1 text-sm rounded 
-              ${job.status === "Applied" && "bg-blue-100 text-blue-600"}
-              ${job.status === "Interview" && "bg-yellow-100 text-yellow-600"}
-              ${job.status === "Offer" && "bg-green-100 text-green-600"}
-              ${job.status === "Rejected" && "bg-red-100 text-red-600"}`}
-            >
-              {job.status}
-            </span>
+              <span
+                className={`px-3 py-1 text-sm rounded-full
+        ${job.status === "Applied" && "bg-blue-100 text-blue-600"}
+        ${job.status === "Interview" && "bg-yellow-100 text-yellow-600"}
+        ${job.status === "Offer" && "bg-green-100 text-green-600"}
+        ${job.status === "Rejected" && "bg-red-100 text-red-600"}`}
+              >
+                {job.status}
+              </span>
+            </div>
 
             <div className="mt-3">
               <button
@@ -75,7 +79,7 @@ function Dashboard() {
                   e.stopPropagation();
                   deleteJob(job._id);
                 }}
-                className="text-red-500 text-sm"
+                className="text-red-500 text-sm cursor-pointer background-transparent border border-red-500 rounded px-3 py-1 hover:bg-red-500 hover:text-white transition"
               >
                 Delete
               </button>

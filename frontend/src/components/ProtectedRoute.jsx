@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import useAuthStore from "../store/authStore";
+import Layout from "./Layout";
 
 function ProtectedRoute({ children }) {
   const { user, authLoading } = useAuthStore();
@@ -12,7 +13,7 @@ function ProtectedRoute({ children }) {
     return <Navigate to="/login" />;
   }
 
-  return children;
+  return <Layout>{children}</Layout>;
 }
 
 export default ProtectedRoute;
