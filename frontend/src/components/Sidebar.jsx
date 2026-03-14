@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useAuthStore from "../store/authStore";
 
 function Sidebar() {
-  const { user,logout } = useAuthStore();
+  const { user, logout } = useAuthStore();
 
   const handleLogout = () => {
     logout();
@@ -20,17 +20,10 @@ function Sidebar() {
 
       <nav className="flex flex-col gap-3">
         <Link
-          to="/"
+          to="/dashboard"
           className="rounded-lg px-4 py-3 transition-colors duration-200 text-slate-100 hover:bg-slate-700 hover:text-white"
         >
           Dashboard
-        </Link>
-
-        <Link
-          to="/"
-          className="rounded-lg px-4 py-3 transition-colors duration-200 text-slate-100 hover:bg-slate-700 hover:text-white"
-        >
-          Jobs
         </Link>
 
         <button

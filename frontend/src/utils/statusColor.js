@@ -9,3 +9,13 @@ export const getStatusColor = (status) => {
 
   return colors[status] || "bg-gray-100 text-gray-600";
 };
+
+export const getRoundResultColor = (result) => {
+  const colors = {
+    Pending: "bg-yellow-100 text-yellow-700",
+    Pass: "bg-green-100 text-green-700",
+    Fail: "bg-red-100 text-red-700",
+  };
+
+  return colors[result] || "bg-gray-100 text-gray-600";
+};

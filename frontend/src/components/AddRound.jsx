@@ -25,21 +25,26 @@ function AddRound({ jobId }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="border p-4 rounded mb-6">
-      <h2 className="font-semibold mb-3">Add Interview Round</h2>
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white rounded-2xl border border-slate-200 p-6 shadow-lg mb-6"
+    >
+      <h2 className="text-xl font-bold text-slate-900 mb-4">
+        Add Interview Round
+      </h2>
 
       <input
         type="text"
         placeholder="Round Name"
         value={form.roundName}
         onChange={(e) => setForm({ ...form, roundName: e.target.value })}
-        className="border p-2 w-full mb-2"
+        className="w-full rounded-lg border border-slate-300 px-4 py-3 mb-3 focus:outline-none focus:ring-2 focus:ring-indigo-300"
       />
 
       <select
         value={form.result}
         onChange={(e) => setForm({ ...form, result: e.target.value })}
-        className="border p-2 w-full mb-2"
+        className="w-full rounded-lg border border-slate-300 px-4 py-3 mb-3 focus:outline-none focus:ring-2 focus:ring-indigo-300"
       >
         <option value="Pending">Pending</option>
         <option value="Pass">Pass</option>
@@ -50,12 +55,12 @@ function AddRound({ jobId }) {
         placeholder="Notes"
         value={form.notes}
         onChange={(e) => setForm({ ...form, notes: e.target.value })}
-        className="border p-2 w-full mb-2"
+        className="w-full rounded-lg border border-slate-300 px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-300 h-24 resize-none"
       />
 
       <button
         type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded"
+        className="w-full rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-500 px-4 py-3 font-semibold text-white shadow hover:from-indigo-700 hover:to-cyan-600 transition"
       >
         Add Round
       </button>

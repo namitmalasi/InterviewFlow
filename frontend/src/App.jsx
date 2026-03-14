@@ -7,6 +7,7 @@ import useAuthStore from "./store/authStore";
 import { useEffect } from "react";
 import PublicRoute from "./components/PublicRoute";
 import JobDetails from "./pages/JobDetails";
+import Home from "./pages/Home";
 
 function App() {
   const checkAuth = useAuthStore((state) => state.checkAuth);
@@ -18,6 +19,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Home />} />
+
         <Route
           path="/login"
           element={
@@ -35,7 +38,7 @@ function App() {
           }
         />
         <Route
-          path="/"
+          path="/dashboard"
           element={
             <ProtectedRoute>
               <Dashboard />
