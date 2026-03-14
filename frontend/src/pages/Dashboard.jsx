@@ -71,7 +71,10 @@ function Dashboard() {
 
             <div className="mt-3">
               <button
-                onClick={() => deleteJob(job._id)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteJob(job._id);
+                }}
                 className="text-red-500 text-sm"
               >
                 Delete

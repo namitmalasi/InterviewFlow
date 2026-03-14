@@ -3,6 +3,7 @@ import api from "../services/api";
 
 const useJobStore = create((set) => ({
   jobs: [],
+  rounds: [],
   loading: false,
 
   fetchJobs: async () => {
@@ -37,6 +38,40 @@ const useJobStore = create((set) => ({
 
       set((state) => ({
         jobs: state.jobs.filter((job) => job._id !== id),
+      }));
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  fetchRounds: async (jobId) => {
+    try {
+      const res = await api.get(`/rounds/${jobId}`);
+
+      set({ rounds: res.data });
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  addRound: async (jobId, data) => {
+    try {
+      const res = await api.post(`/rounds/${jobId}`, data);
+
+      set((state) => ({
+        rounds: [...state.rounds, res.data],
+      }));
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  deleteRound: async (roundId) => {
+    try {
+      await api.delete(`/rounds/${roundId}`);
+
+      set((state) => ({
+        rounds: state.rounds.filter((r) => r._id !== roundId),
       }));
     } catch (error) {
       console.error(error);
