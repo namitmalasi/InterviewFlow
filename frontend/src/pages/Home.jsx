@@ -39,12 +39,6 @@ function Home() {
           >
             Get Started
           </Link>
-          <Link
-            to="/login"
-            className="rounded-xl bg-white/20 px-8 py-3 font-semibold text-white hover:bg-white/40 transition"
-          >
-            Sign In
-          </Link>
         </div>
       </main>
     </div>

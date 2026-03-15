@@ -32,7 +32,7 @@ const useAuthStore = create((set) => ({
     try {
       const res = await api.post("/auth/register", data);
 
-      set({ user: res.data });
+      set({ user: res.data.user ?? res.data });
       set({ toast: { message: "Registration successful!", type: "success" } });
 
       return true;
@@ -54,7 +54,7 @@ const useAuthStore = create((set) => ({
     try {
       const res = await api.post("/auth/login", data);
 
-      set({ user: res.data });
+      set({ user: res.data.user ?? res.data });
       set({ toast: { message: "Login successful!", type: "success" } });
       return true;
     } catch (error) {
