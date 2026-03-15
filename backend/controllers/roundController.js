@@ -19,7 +19,21 @@ export const addRound = async (req, res) => {
       ...req.body,
     });
 
-    res.status(201).json(round);
+    let updatedJob = await Job.findById(req.params.jobId);
+    if (updatedJob) {
+      if (round.result === "Fail") {
+        updatedJob.status = "Rejected";
+      } else if (
+        updatedJob.status === "Applied" ||
+        updatedJob.status === "OA"
+      ) {
+        updatedJob.status = "Interview";
+      }
+
+      await updatedJob.save();
+    }
+
+    res.status(201).json({ round, job: updatedJob });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -53,7 +67,18 @@ export const updateRound = async (req, res) => {
       { new: true },
     );
 
-    res.json(updatedRound);
+    const job = await Job.findById(updatedRound.job);
+    if (job) {
+      if (updatedRound.result === "Fail") {
+        job.status = "Rejected";
+      } else if (job.status === "Applied" || job.status === "OA") {
+        job.status = "Interview";
+      }
+
+      await job.save();
+    }
+
+    res.json({ round: updatedRound, job });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

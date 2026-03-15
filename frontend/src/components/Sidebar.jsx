@@ -36,7 +36,7 @@ function Sidebar() {
 
       <div className="mt-8 border-t border-slate-700 pt-4">
         <p className="text-xs text-slate-300">Logged in as</p>
-        <p className="text-sm font-semibold">{user.name}</p>
+        <p className="text-sm font-semibold">{user?.name}</p>
       </div>
     </aside>
   );

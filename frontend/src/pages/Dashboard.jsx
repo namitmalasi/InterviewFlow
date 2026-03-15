@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useJobStore from "../store/jobStore";
 import AddJob from "../components/AddJob";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,24 @@ import { getStatusColor } from "../utils/statusColor.js";
 function Dashboard() {
   const { jobs, fetchJobs, deleteJob } = useJobStore();
   const navigate = useNavigate();
+  const [searchText, setSearchText] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+
+  const filteredJobs = useMemo(() => {
+    const text = searchText.trim().toLowerCase();
+
+    return jobs.filter((job) => {
+      const matchesStatus =
+        statusFilter === "All" || job.status === statusFilter;
+
+      const matchesText =
+        text === "" ||
+        job.companyName.toLowerCase().includes(text) ||
+        job.role.toLowerCase().includes(text);
+
+      return matchesStatus && matchesText;
+    });
+  }, [jobs, searchText, statusFilter]);
 
   useEffect(() => {
     fetchJobs();
@@ -55,8 +73,59 @@ function Dashboard() {
 
       <AddJob />
 
+      {/* Filters & Search */}
+      <div className="flex flex-col md:flex-row md:items-end gap-3 mt-5 mb-5">
+        <div className="flex-1">
+          <label
+            className="block text-sm text-slate-600 mb-1"
+            htmlFor="job-search"
+          >
+            Search by company or role
+          </label>
+          <input
+            id="job-search"
+            className="w-full border border-slate-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            type="text"
+            placeholder="Search jobs..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+        </div>
+
+        <div className="w-full md:w-40">
+          <label
+            className="block text-sm text-slate-600 mb-1"
+            htmlFor="status-filter"
+          >
+            Status filter
+          </label>
+          <select
+            id="status-filter"
+            className="w-full border border-slate-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
+            <option value="All">All</option>
+            <option value="Applied">Applied</option>
+            <option value="Interview">Interview</option>
+            <option value="Offer">Offer</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+
+        <button
+          className="px-4 py-2 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold"
+          onClick={() => {
+            setSearchText("");
+            setStatusFilter("All");
+          }}
+        >
+          Reset
+        </button>
+      </div>
+
       {/* Job List */}
-      {jobs.length === 0 && (
+      {filteredJobs.length === 0 && (
         <div className="text-center py-20 bg-white rounded-xl shadow-inner border border-dashed border-slate-300">
           <p className="text-xl font-semibold mb-2 text-slate-700">
             No job applications yet
@@ -66,7 +135,7 @@ function Dashboard() {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
-        {jobs.map((job) => (
+        {filteredJobs.map((job) => (
           <div
             key={job._id}
             onClick={() => navigate(`/jobs/${job._id}`)}

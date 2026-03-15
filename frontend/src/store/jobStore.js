@@ -69,9 +69,35 @@ const useJobStore = create((set) => ({
   addRound: async (jobId, data) => {
     try {
       const res = await api.post(`/rounds/${jobId}`, data);
+      const { round, job: updatedJob } = res.data;
 
       set((state) => ({
-        rounds: [...state.rounds, res.data],
+        rounds: [...state.rounds, round],
+        jobs: updatedJob
+          ? state.jobs.map((job) =>
+              job._id === updatedJob._id ? updatedJob : job,
+            )
+          : state.jobs,
+      }));
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  updateRound: async (roundId, data) => {
+    try {
+      const res = await api.put(`/rounds/${roundId}`, data);
+      const { round: updatedRound, job: updatedJob } = res.data;
+
+      set((state) => ({
+        rounds: state.rounds.map((round) =>
+          round._id === roundId ? updatedRound : round,
+        ),
+        jobs: updatedJob
+          ? state.jobs.map((job) =>
+              job._id === updatedJob._id ? updatedJob : job,
+            )
+          : state.jobs,
       }));
     } catch (error) {
       console.error(error);

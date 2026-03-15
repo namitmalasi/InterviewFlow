@@ -7,8 +7,7 @@ const useAuthStore = create((set) => ({
   authLoading: true,
 
   toast: null,
-  showToast: (message, type = "success") =>
-    set({ toast: { message, type } }),
+  showToast: (message, type = "success") => set({ toast: { message, type } }),
   clearToast: () => set({ toast: null }),
 
   checkAuth: async () => {
@@ -39,7 +38,8 @@ const useAuthStore = create((set) => ({
       return true;
     } catch (error) {
       const message =
-        error.response?.data?.message || "Registration failed. Please try again.";
+        error.response?.data?.message ||
+        "Registration failed. Please try again.";
       set({ toast: { message, type: "error" } });
       console.error(message);
       return false;
@@ -58,7 +58,9 @@ const useAuthStore = create((set) => ({
       set({ toast: { message: "Login successful!", type: "success" } });
       return true;
     } catch (error) {
-      const message = error.response?.data?.message || "Login failed. Please check your credentials.";
+      const message =
+        error.response?.data?.message ||
+        "Login failed. Please check your credentials.";
       set({ toast: { message, type: "error" } });
       console.error(message);
       return false;
@@ -69,8 +71,10 @@ const useAuthStore = create((set) => ({
 
   logout: async () => {
     await api.post("/auth/logout");
-
     set({ user: null });
+    set({
+      toast: { message: "Logged out successfully!", type: "success" },
+    });
   },
 }));
 
