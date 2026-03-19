@@ -25,7 +25,7 @@ function Toast() {
   return (
     <div className="fixed bottom-6 right-6 z-50">
       <div
-        className={`min-w-[240px] px-4 py-3 rounded-xl text-white shadow-lg ${colorClasses}`}
+        className={`min-w-60 px-4 py-3 rounded-xl text-white shadow-lg ${colorClasses}`}
       >
         {toast.message}
       </div>

@@ -25,6 +25,7 @@ function Sidebar() {
         >
           Dashboard
         </Link>
+       
 
         <button
           className="mt-4 rounded-lg px-4 py-3 bg-rose-500 text-white font-medium hover:bg-rose-400 transition-colors duration-200 text-left"

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import api from "../services/api";
+import useAuthStore from "./authStore";
 
 const useJobStore = create((set) => ({
   jobs: [],
@@ -15,6 +16,7 @@ const useJobStore = create((set) => ({
       set({ jobs: res.data });
     } catch (error) {
       console.error(error);
+      useAuthStore.getState().showToast("Failed to fetch jobs", "error");
     }
 
     set({ loading: false });
@@ -27,8 +29,15 @@ const useJobStore = create((set) => ({
       set((state) => ({
         jobs: [res.data, ...state.jobs],
       }));
+
+      useAuthStore.getState().showToast("Job created successfully", "success");
+      return res.data;
     } catch (error) {
-      console.error(error);
+      const message =
+        error.response?.data?.message || "Job creation failed. Please try again.";
+      console.error(message);
+      useAuthStore.getState().showToast(message, "error");
+      return null;
     }
   },
 
@@ -39,8 +48,18 @@ const useJobStore = create((set) => ({
       set((state) => ({
         jobs: state.jobs.map((job) => (job._id === id ? res.data : job)),
       }));
+
+      const statusMsg = data.status
+        ? `Job status updated to ${data.status}`
+        : "Job updated successfully";
+      useAuthStore.getState().showToast(statusMsg, "success");
+      return res.data;
     } catch (error) {
-      console.error(error);
+      const message =
+        error.response?.data?.message || "Job update failed. Please try again.";
+      console.error(message);
+      useAuthStore.getState().showToast(message, "error");
+      return null;
     }
   },
 
@@ -51,8 +70,15 @@ const useJobStore = create((set) => ({
       set((state) => ({
         jobs: state.jobs.filter((job) => job._id !== id),
       }));
+
+      useAuthStore.getState().showToast("Job deleted successfully", "success");
+      return true;
     } catch (error) {
-      console.error(error);
+      const message =
+        error.response?.data?.message || "Job delete failed. Please try again.";
+      console.error(message);
+      useAuthStore.getState().showToast(message, "error");
+      return false;
     }
   },
 
@@ -79,8 +105,15 @@ const useJobStore = create((set) => ({
             )
           : state.jobs,
       }));
+
+      useAuthStore.getState().showToast("Round added successfully", "success");
+      return round;
     } catch (error) {
-      console.error(error);
+      const message =
+        error.response?.data?.message || "Round creation failed. Please try again.";
+      console.error(message);
+      useAuthStore.getState().showToast(message, "error");
+      return null;
     }
   },
 
@@ -99,8 +132,18 @@ const useJobStore = create((set) => ({
             )
           : state.jobs,
       }));
+
+      const statusMsg = data.result
+        ? `Round result updated to ${data.result}`
+        : "Round updated successfully";
+      useAuthStore.getState().showToast(statusMsg, "success");
+      return updatedRound;
     } catch (error) {
-      console.error(error);
+      const message =
+        error.response?.data?.message || "Round update failed. Please try again.";
+      console.error(message);
+      useAuthStore.getState().showToast(message, "error");
+      return null;
     }
   },
 
@@ -111,8 +154,15 @@ const useJobStore = create((set) => ({
       set((state) => ({
         rounds: state.rounds.filter((r) => r._id !== roundId),
       }));
+
+      useAuthStore.getState().showToast("Round deleted successfully", "success");
+      return true;
     } catch (error) {
-      console.error(error);
+      const message =
+        error.response?.data?.message || "Round delete failed. Please try again.";
+      console.error(message);
+      useAuthStore.getState().showToast(message, "error");
+      return false;
     }
   },
 }));
