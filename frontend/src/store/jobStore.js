@@ -5,6 +5,7 @@ import useAuthStore from "./authStore";
 const useJobStore = create((set) => ({
   jobs: [],
   rounds: [],
+  offers: [],
   loading: false,
 
   fetchJobs: async () => {
@@ -89,6 +90,71 @@ const useJobStore = create((set) => ({
       set({ rounds: res.data });
     } catch (error) {
       console.error(error);
+    }
+  },
+
+  fetchOffers: async (jobId) => {
+    try {
+      const res = await api.get(`/offers/${jobId}`);
+      set({ offers: res.data });
+    } catch (error) {
+      console.error(error);
+      useAuthStore.getState().showToast("Failed to fetch offers", "error");
+    }
+  },
+
+  addOffer: async (jobId, data) => {
+    try {
+      const res = await api.post(`/offers/${jobId}`, data);
+      const { offer, job: updatedJob } = res.data;
+
+      set((state) => ({
+        offers: [...state.offers, offer],
+        jobs: updatedJob
+          ? state.jobs.map((job) =>
+              job._id === updatedJob._id ? updatedJob : job,
+            )
+          : state.jobs,
+      }));
+
+      useAuthStore.getState().showToast("Offer created successfully", "success");
+      return offer;
+    } catch (error) {
+      const message =
+        error.response?.data?.message || "Offer creation failed. Please try again.";
+      console.error(message);
+      useAuthStore.getState().showToast(message, "error");
+      return null;
+    }
+  },
+
+  updateOffer: async (offerId, data) => {
+    try {
+      const res = await api.put(`/offers/${offerId}`, data);
+      const { offer: updatedOffer, job: updatedJob } = res.data;
+
+      set((state) => ({
+        offers: state.offers.map((offer) =>
+          offer._id === offerId ? updatedOffer : offer,
+        ),
+        jobs: updatedJob
+          ? state.jobs.map((job) =>
+              job._id === updatedJob._id ? updatedJob : job,
+            )
+          : state.jobs,
+      }));
+
+      const statusMsg = data.status
+        ? `Offer status updated to ${data.status}`
+        : "Offer updated successfully";
+      useAuthStore.getState().showToast(statusMsg, "success");
+      return updatedOffer;
+    } catch (error) {
+      const message =
+        error.response?.data?.message || "Offer update failed. Please try again.";
+      console.error(message);
+      useAuthStore.getState().showToast(message, "error");
+      return null;
     }
   },
 

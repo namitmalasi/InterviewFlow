@@ -19,3 +19,13 @@ export const getRoundResultColor = (result) => {
 
   return colors[result] || "bg-gray-100 text-gray-600";
 };
+
+export const getOfferStatusColor = (status) => {
+  const colors = {
+    Pending: "bg-yellow-100 text-yellow-700",
+    Accepted: "bg-green-100 text-green-700",
+    Rejected: "bg-red-100 text-red-700",
+  };
+
+  return colors[status] || "bg-gray-100 text-gray-600";
+};
