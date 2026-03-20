@@ -13,8 +13,23 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+
+const allowedOrigins = [
+  "https://interviewflow-1.onrender.com",
+  "http://localhost:5173",
+];
+
 app.use(
-  cors({ origin: "https://interviewflow-1.onrender.com/", credentials: true }),
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked by policy: ${origin}`));
+      }
+    },
+    credentials: true,
+  }),
 );
 
 app.get("/", (req, res) => {
