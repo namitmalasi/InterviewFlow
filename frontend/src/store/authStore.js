@@ -23,6 +23,7 @@ const useAuthStore = create((set) => ({
         user: null,
         authLoading: false,
       });
+      localStorage.removeItem("token");
     }
   },
 
@@ -55,6 +56,7 @@ const useAuthStore = create((set) => ({
       const res = await api.post("/auth/login", data);
 
       set({ user: res.data.user ?? res.data });
+      localStorage.setItem("token", res.data.token);
       set({ toast: { message: "Login successful!", type: "success" } });
       return true;
     } catch (error) {
@@ -72,6 +74,7 @@ const useAuthStore = create((set) => ({
   logout: async () => {
     await api.post("/auth/logout");
     set({ user: null });
+    localStorage.removeItem("token");
     set({
       toast: { message: "Logged out successfully!", type: "success" },
     });
