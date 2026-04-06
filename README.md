@@ -1,32 +1,40 @@
-# StyleStreet
+# Interview Flow
 
 - A fullstack Job Application Tracker built using the MERN stack that helps users manage job applications, track interview progress, and visualize their job pipeline.
 
-# Features
+## Features
 
 - 🔐 Authentication (JWT)
 - 📊 Dashboard with application statistics
-- 📌 Add, edit, delete job applications
+- 📌 Add, edit, and delete job applications
 - 🧩 Kanban-style job pipeline (Applied → Offer)
 - 🧠 Interview round tracking with notes & results
 - 🔍 Search and filter jobs
 - 🔗 Store job application links
 
-# Tech Stack
+## Tech Stack
 
+<<<<<<< HEAD
 ## Frontend
 
+=======
+### Frontend
+>>>>>>> d3e4334743aa55c2efb1b84c451bd33e822a2d5b
 React.js
 Zustand
 Tailwind CSS
 Axios
 
+<<<<<<< HEAD
 ## Backend
+=======
+### Backend
+>>>>>>> d3e4334743aa55c2efb1b84c451bd33e822a2d5b
 
 Node.js
 Express.js
 MongoDB (Mongoose)
 
-# Links
+## Links
 
 - Live : [Interview Flow](https://interviewflow-1.onrender.com/)
