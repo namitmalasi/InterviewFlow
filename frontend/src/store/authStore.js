@@ -34,6 +34,7 @@ const useAuthStore = create((set) => ({
       const res = await api.post("/auth/register", data);
 
       set({ user: res.data.user ?? res.data });
+      localStorage.setItem("token", res.data.token);
       set({ toast: { message: "Registration successful!", type: "success" } });
 
       return true;

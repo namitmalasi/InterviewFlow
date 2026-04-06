@@ -14,13 +14,14 @@
 
 # Tech Stack
 
-# Frontend
+## Frontend
+
 React.js
 Zustand
 Tailwind CSS
 Axios
 
-# Backend
+## Backend
 
 Node.js
 Express.js
