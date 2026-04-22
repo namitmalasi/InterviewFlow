@@ -14,22 +14,14 @@
 
 ## Tech Stack
 
-<<<<<<< HEAD
-## Frontend
-
-=======
 ### Frontend
->>>>>>> d3e4334743aa55c2efb1b84c451bd33e822a2d5b
+
 React.js
 Zustand
 Tailwind CSS
 Axios
 
-<<<<<<< HEAD
-## Backend
-=======
 ### Backend
->>>>>>> d3e4334743aa55c2efb1b84c451bd33e822a2d5b
 
 Node.js
 Express.js
