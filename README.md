@@ -26,7 +26,3 @@ Axios
 Node.js
 Express.js
 MongoDB (Mongoose)
-
-## Links
-
-- Live : [Interview Flow](https://interviewflow-1.onrender.com/)
