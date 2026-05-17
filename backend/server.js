@@ -16,6 +16,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "https://interviewflow-1.onrender.com",
+  "https://interviewflow-1-ozfv.onrender.com",
   "http://localhost:5173",
 ];
 
